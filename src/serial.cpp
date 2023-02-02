@@ -14,6 +14,7 @@ HardwareSerial::HardwareSerial() {
 }
 
 HardwareSerial::~HardwareSerial() {
+    delete readerThread;
     CloseHandle(handle);
     cout << "after destructor handle: " << handle << endl;
 
@@ -50,12 +51,12 @@ SerialBeginResult HardwareSerial::begin(char *port, uint32_t baudRate) {
     SetCommTimeouts(handle, &timeout);
     cout << "OPEN PORT " << port << endl;
 
-    thread tr(reader, this);
-    tr.detach();
+    readerThread = new thread(reader, this);
     return OK;
 }
 
 [[noreturn]] void HardwareSerial::reader(HardwareSerial *thisObject) {
+    thisObject->readerThread->detach();
     while (true) {
 //        cout << "New thread" << endl;
         this_thread::sleep_for(chrono::milliseconds(1000));
