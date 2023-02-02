@@ -20,12 +20,7 @@ HardwareSerial::~HardwareSerial() {
 
 }
 
-[[noreturn]] void HardwareSerial::reader() {
-    while (true) {
-//        cout << "New thread" << endl;
-        this_thread::sleep_for(chrono::milliseconds(1000));
-    }
-}
+
 
 SerialBeginResult HardwareSerial::begin(char *port, uint32_t baudRate) {
     handle = CreateFile(port, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, 0);
@@ -55,12 +50,18 @@ SerialBeginResult HardwareSerial::begin(char *port, uint32_t baudRate) {
     timeout.WriteTotalTimeoutMultiplier = 10;
     SetCommTimeouts(handle, &timeout);
     cout << "OPEN PORT " << port << endl;
-    thread tr(reader);
+
+    thread tr(reader, this);
     tr.detach();
     return OK;
 }
 
-
+[[noreturn]] void HardwareSerial::reader(HardwareSerial *thisObject) {
+    while (true) {
+//        cout << "New thread" << endl;
+        this_thread::sleep_for(chrono::milliseconds(1000));
+    }
+}
 
 
 

@@ -31,7 +31,7 @@ public:
     size_t println(const char *data);
     char readByte();
 private:
-    [[noreturn]] void static reader();
+    [[noreturn]] void static reader(HardwareSerial *thisObject);
     HANDLE handle = nullptr;
     thread *readerThread = nullptr;
 };
