@@ -31,7 +31,7 @@ public:
 private:
     [[noreturn]] void static reader(HardwareSerial *thisObject);
     HANDLE handle = nullptr;
-    thread *readerThread = nullptr;
+    thread *readerThread{};
 };
 
 #endif //WIN_SERIAL_TEMPLATE_SERIAL_H
