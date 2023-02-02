@@ -5,7 +5,7 @@ using namespace std;
 
 void testDestructor() {
     cout << "Start testDestructor" << endl;
-
+    Serial serial;
     cout << "End testDestructor" << endl;
 }
 
