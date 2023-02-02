@@ -3,6 +3,8 @@
 
 using namespace std;
 
+HardwareSerial Serial;
+
 void testDestructor() {
     cout << "Start testDestructor" << endl;
     HardwareSerial serial;

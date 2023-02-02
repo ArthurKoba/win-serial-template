@@ -4,7 +4,6 @@
 
 #include "serial.h"
 
-HardwareSerial Serial;
 
 HardwareSerial::HardwareSerial() {
 //    if (actualSerial != nullptr) return;
