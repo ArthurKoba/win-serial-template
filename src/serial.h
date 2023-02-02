@@ -21,10 +21,10 @@ enum SerialBeginResult : uint8_t {
     OK, NO_FIND, SOME_ERROR
 };
 
-class Serial {
+class HardwareSerial {
 public:
-    Serial();
-    ~Serial();
+    HardwareSerial();
+    ~HardwareSerial();
     SerialBeginResult begin(char *port, uint32_t baudRate);
     size_t write(const char *data, size_t size);
     size_t print(const char *data);
@@ -32,9 +32,8 @@ public:
     char readByte();
 private:
     [[noreturn]] void static reader();
-    thread *readerThread = nullptr;
     HANDLE handle = nullptr;
+    thread *readerThread = nullptr;
 };
-
 
 #endif //WIN_SERIAL_TEMPLATE_SERIAL_H

@@ -5,12 +5,13 @@ using namespace std;
 
 void testDestructor() {
     cout << "Start testDestructor" << endl;
-    Serial serial;
+    HardwareSerial serial;
     cout << "End testDestructor" << endl;
 }
 
 
 int main() {
-    testDestructor();
+//    testDestructor();
+//    cout << "Start program" << endl;
     return 0;
 }

@@ -4,30 +4,30 @@
 
 #include "serial.h"
 
-Serial *actualSerial = nullptr;
+HardwareSerial Serial;
 
-Serial::Serial() {
-    if (actualSerial != nullptr) return;
-    actualSerial = this;
+HardwareSerial::HardwareSerial() {
+//    if (actualSerial != nullptr) return;
+//    actualSerial = this;
     cout << "default handle: " << handle << endl;
     handle = new HANDLE;
     cout << "after constructor handle: " << handle << endl;
 }
 
-Serial::~Serial() {
+HardwareSerial::~HardwareSerial() {
     CloseHandle(handle);
     cout << "after destructor handle: " << handle << endl;
 
 }
 
-[[noreturn]] void Serial::reader() {
+[[noreturn]] void HardwareSerial::reader() {
     while (true) {
 //        cout << "New thread" << endl;
         this_thread::sleep_for(chrono::milliseconds(1000));
     }
 }
 
-SerialBeginResult Serial::begin(char *port, uint32_t baudRate) {
+SerialBeginResult HardwareSerial::begin(char *port, uint32_t baudRate) {
     handle = CreateFile(port, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, 0);
     if (handle == INVALID_HANDLE_VALUE) {
         if (GetLastError() == ERROR_FILE_NOT_FOUND) {
@@ -64,7 +64,7 @@ SerialBeginResult Serial::begin(char *port, uint32_t baudRate) {
 
 
 
-size_t Serial::write(const char *data, size_t size) {
+size_t HardwareSerial::write(const char *data, size_t size) {
     DWORD send = 0;
     OVERLAPPED osWrite = { 0 };
     osWrite.hEvent = CreateEvent(nullptr, TRUE, FALSE, nullptr);
@@ -88,7 +88,7 @@ size_t Serial::write(const char *data, size_t size) {
     return send;
 }
 
-char Serial::readByte() {
+char HardwareSerial::readByte() {
     DWORD dwRead = 0;
     char buffer[300];
     OVERLAPPED osReader = { 0 };
@@ -106,11 +106,11 @@ char Serial::readByte() {
     return buffer[0];
 }
 
-size_t Serial::print(const char *data) {
+size_t HardwareSerial::print(const char *data) {
     return write(data, strlen(data));
 }
 
-size_t Serial::println(const char *data) {
+size_t HardwareSerial::println(const char *data) {
     size_t sendBytes = write(data, strlen(data));
     sendBytes += write("\n", 1);
     return sendBytes;
