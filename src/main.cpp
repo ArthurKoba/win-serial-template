@@ -1,6 +1,15 @@
 #include <iostream>
 
+using namespace std;
+
+void testDestructor() {
+    cout << "Start testDestructor" << endl;
+
+    cout << "End testDestructor" << endl;
+}
+
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    testDestructor();
     return 0;
 }
