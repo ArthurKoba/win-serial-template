@@ -14,6 +14,8 @@ void testDestructor() {
 
 int main() {
 //    testDestructor();
-//    cout << "Start program" << endl;
+    uint32_t baudRate = 500000;
+    char port[] = R"(\\.\COM30)";
+    Serial.begin(port, baudRate);
     return 0;
 }

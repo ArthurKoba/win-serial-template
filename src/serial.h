@@ -11,9 +11,7 @@
 #include <chrono>
 #include <thread>
 
-#ifndef SERIAL_PORT
-    #define SERIAL_PORT "\\\\.\\COM1"
-#endif
+//#define SERIAL_PORT "\\\\.\\COM1"
 
 using namespace std;
 
